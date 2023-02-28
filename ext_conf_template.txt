@@ -1,0 +1,2 @@
+# cat=Id; type=string; label=ID: If set, this domain name will be used instead of request domain.
+appId =

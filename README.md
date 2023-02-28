@@ -24,13 +24,17 @@ This puts the following limitations on usages of this provider:
 
  * Requires HTTPS or a localhost environment
    (therefore use `http://{myproject}.localhost` as local development URL)
- * Works only for one domain, multi domain sites need to have TYPO3 backend redirected to exactly
-   one domain, or should use alternative MFA MFA providers.
-
+ * WebAuthn API is bound to one domain which is used as the application ID. In general the backend for a system should
+   be available via one primary domain only. If that is not the case or if you want to share the WebAuthn tokens e.g.
+   between a production system and its copies, there is an extension configuration item which can be used to enforce a
+   specific domain instead of deriving it from the backend request:
+```
+$GLOBALS['TYPO3_CONF_VARS']['EXTENSIONS']['mfa_webauthn']['appId'] = 'primarydomain.example.com`;
+```
 
 ## Alternative Extensions
 
-If the restriction to one backend domain is too limiting, consider using [mfa_yubikey](https://github.com/derhansen/mfa_yubikey)
+If this extension is too limiting, consider using [mfa_yubikey](https://github.com/derhansen/mfa_yubikey)
  or [mfa_hotp](https://github.com/o-ba/mfa_hotp) instead. Note, both providers are less secure than webauthn, as the user
 can be spoofed with a faked domain name, but they are more flexible and both allow to use hardware tokens with a multi
 domain setup.

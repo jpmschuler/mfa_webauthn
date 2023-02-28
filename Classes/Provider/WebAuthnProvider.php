@@ -26,6 +26,7 @@ use Psr\Http\Message\ServerRequestInterface;
 use TYPO3\CMS\Core\Authentication\Mfa\MfaProviderInterface;
 use TYPO3\CMS\Core\Authentication\Mfa\MfaProviderPropertyManager;
 use TYPO3\CMS\Core\Authentication\Mfa\MfaViewType;
+use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
 use TYPO3\CMS\Core\Context\Context;
 use TYPO3\CMS\Core\Core\Environment;
 use TYPO3\CMS\Core\Information\Typo3Version;
@@ -405,7 +406,9 @@ class WebAuthnProvider implements MfaProviderInterface, LoggerAwareInterface
         MfaProviderPropertyManager $propertyManager
     ): Server {
         $name = 'TYPO3 Backend';
-        $id = $request->getAttribute('normalizedParams')->getRequestHostOnly();
+        $extensionConfiguration = GeneralUtility::makeInstance(ExtensionConfiguration::class)
+            ->get('mfa_webauthn');
+        $id = $extensionConfiguration['appId'] ?? $request->getAttribute('normalizedParams')->getRequestHostOnly();
 
         $server = new Server(
             new PublicKeyCredentialRpEntity($name, $id),
