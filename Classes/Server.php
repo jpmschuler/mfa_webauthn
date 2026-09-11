@@ -87,16 +87,11 @@ class Server
         private ?LoggerInterface $logger,
     ) {
         $this->coseAlgorithmManagerFactory = new ManagerFactory();
-        $this->coseAlgorithmManagerFactory->add('RS1', new RSA\RS1());
         $this->coseAlgorithmManagerFactory->add('RS256', new RSA\RS256());
-        $this->coseAlgorithmManagerFactory->add('RS384', new RSA\RS384());
         $this->coseAlgorithmManagerFactory->add('RS512', new RSA\RS512());
         $this->coseAlgorithmManagerFactory->add('PS256', new RSA\PS256());
-        $this->coseAlgorithmManagerFactory->add('PS384', new RSA\PS384());
         $this->coseAlgorithmManagerFactory->add('PS512', new RSA\PS512());
         $this->coseAlgorithmManagerFactory->add('ES256', new ECDSA\ES256());
-        $this->coseAlgorithmManagerFactory->add('ES256K', new ECDSA\ES256K());
-        $this->coseAlgorithmManagerFactory->add('ES384', new ECDSA\ES384());
         $this->coseAlgorithmManagerFactory->add('ES512', new ECDSA\ES512());
         $this->coseAlgorithmManagerFactory->add('Ed25519', new EdDSA\Ed25519());
 
